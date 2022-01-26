@@ -30,3 +30,33 @@ $ docker info
 ``` 
 lets us inspect Docker. It will contain a lot of output but focus on the top lines which show we now have 1 container which is stopped and 1 image.
 This means Docker is successfully installed and running.# sensei_docker
+
+## Demo
+
+### commands
+
+#### create docker network
+```
+$ docker network create mongo-network
+```
+
+####
+```
+$ docker run -d \
+> -p 27017:27017
+> -e MONGO_INITDB_ROOT_USERNAME=rickysensei \
+> -e MONGO_INITDB_ROOT_PASSWORD=password \
+> --net mongodb \
+> mongo
+```
+
+#### start mongo-express
+```
+$ docker run -d \
+> -p 8081:8081 \
+> -e ME_CONFIG_MONGODB_ADMINUSERNAME=rickysensei \
+> -e ME_CONFIG_MONGODB_ADMINPASSWORD=password \
+> --net mongo-network \
+> --name mongo-express \
+> -e ME_CONFIG_MONGODB_SERVER=mongodb \
+> mongo-express
